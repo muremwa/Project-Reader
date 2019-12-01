@@ -1,0 +1,13 @@
+question_1.py - 38
+question_2(factorial).py - 66
+question_21.py - 45
+.IDEA
+github projects 2.iml - 11
+misc.xml - 5
+modules.xml - 9
+workspace.xml - 17
+DICTIONARIES
+muremwa.xml - 5
+---- END OF DICTIONARIES ----
+---- END OF .IDEA ----
+DESC
