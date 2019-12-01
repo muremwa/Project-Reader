@@ -1,6 +1,6 @@
 # Project Reader
-An easy way to count the number of lines in your project. 
-There is also and easy function to draw the hierarchy of you projects.
+An easy way to count the number of lines in your project. (To be added) 
+There is also and easy function to draw the hierarchy of your projects.
 
 ## Folder visualizer 
 Contains classes(Folder, File) and functions(assign_class, depth_calculator, draw) to help visualize the hierarchy.  
