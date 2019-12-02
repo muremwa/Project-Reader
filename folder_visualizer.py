@@ -96,8 +96,8 @@ def assign_classes(top_folder_name):
     :return: list of objects of File or Folder type
     :rtype: list
     """
-    with open(top_folder_name, 'r') as file:
-        lines = file.readlines()
+    with open(top_folder_name, 'r') as open_file:
+        lines = open_file.readlines()
 
     lines = [line.strip() for line in lines]
     top_folder = Folder(top_folder_name.split("FOLDER_")[-1].split(".txt")[0])
@@ -124,13 +124,13 @@ def assign_classes(top_folder_name):
 def depth_calculator(obj):
     """Determine how far in the hierarchy the file/folder is in. Works for either File or Folder class"""
     depth = 0
-    dad = obj.parent_folder
+    dad = obj.__parent_folder
     next_in = True
 
     while next_in:
-        if dad.parent_folder:
+        if dad.__parent_folder:
             depth += 1
-            dad = dad.parent_folder
+            dad = dad.__parent_folder
         else:
             next_in = False
 
@@ -154,9 +154,9 @@ def draw(klasses, **kwargs):
     except KeyError:
         top_folder_name = "{}.txt".format(top_folder)
 
-    with open(top_folder_name, 'w') as file:
+    with open(top_folder_name, 'w') as open_file:
         # first line is the top folder name
-        print(top_folder, file=file)
+        print(top_folder, file=open_file)
 
         # others
         for klass in klasses[1:]:
@@ -166,25 +166,25 @@ def draw(klasses, **kwargs):
 
             # always an extra line here
             if travel == 0:
-                print("|", file=file)
+                print("|", file=open_file)
             else:
-                print("|" + " "*travel + "|", file=file)
+                print("|" + " "*travel + "|", file=open_file)
 
             # simple file
             if type(klass).__name__ == "File":
                 # top level files
                 if travel == 0:
-                    print("|---- {file}".format(file=str(klass)), file=file)
+                    print("|---- {file}".format(file=str(klass)), file=open_file)
 
                 # more level files
                 else:
-                    print("|" + " "*travel + "|---- {file}".format(file=str(klass)), file=file)
+                    print("|" + " "*travel + "|---- {file}".format(file=str(klass)), file=open_file)
 
             elif type(klass).__name__ == "Folder":
                 # top level folders
                 if travel == 0:
-                    print("|---- {folder}".format(folder=str(klass)), file=file)
+                    print("|---- {folder}".format(folder=str(klass)), file=open_file)
 
                 # more level folders
                 else:
-                    print("|" + " "*travel + "|---- {folder}".format(folder=str(klass)), file=file)
+                    print("|" + " "*travel + "|---- {folder}".format(folder=str(klass)), file=open_file)
