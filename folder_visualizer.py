@@ -124,13 +124,13 @@ def assign_classes(top_folder_name):
 def depth_calculator(obj):
     """Determine how far in the hierarchy the file/folder is in. Works for either File or Folder class"""
     depth = 0
-    dad = obj.__parent_folder
+    dad = obj.parent_folder
     next_in = True
 
     while next_in:
-        if dad.__parent_folder:
+        if dad.parent_folder:
             depth += 1
-            dad = dad.__parent_folder
+            dad = dad.parent_folder
         else:
             next_in = False
 
