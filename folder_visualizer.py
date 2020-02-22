@@ -45,15 +45,17 @@ class File:
         self.parent_folder.files.append(self)
 
     def __str__(self):
-        return "<File: {file_name} ({lines} lines)>".format(
+        return "<{klass}: {file_name} ({lines} lines)>".format(
             lines=self.number_of_lines,
             file_name=self.name,
+            klass=self.__class__.__name__,
         )
 
     def __repr__(self):
-        return "<File: {file_name} from the folder {folder}>".format(
+        return "<{klass}: {file_name} from the folder {folder}>".format(
             folder=self.parent_folder,
             file_name=self.name,
+            klass=self.__class__.__name__,
         )
 
 
@@ -85,7 +87,10 @@ class Folder:
         self.folders = []
 
     def __repr__(self):
-        return "<Folder: {name}>".format(name=self.name.upper())
+        return "<{klass}: {name}>".format(
+            name=self.name.upper(),
+            klass=self.__class__.__name__,
+        )
 
 
 def assign_classes(top_folder_name):
