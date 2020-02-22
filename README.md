@@ -4,7 +4,7 @@ There is also and easy function to draw the hierarchy of your projects.
 
 ## Folder visualizer 
 Contains classes(Folder, File) and functions(assign_class, depth_calculator, draw) to help visualize the hierarchy.  
-Example. This is "FOLDER_GITHUB_PROJECTS_2.txt" prepared by a function __"coming soon"__.  
+Example. This is ___"test_FOLDER_GITHUB_PROJECTS_2.txt"___ prepared by a function __"coming soon"__.  
 
 ```txt
 question_1.py - 38  
@@ -26,7 +26,7 @@ Run the code below
 from folder_visualizer import assign_classes, draw
 
 
-klasses = assign_classes(test_FOLDER_GITHUB_PROJECTS_2.txt)
+klasses = assign_classes('test_FOLDER_GITHUB_PROJECTS_2.txt')
 draw(klasses, file_name="results.txt")
 
 ```
