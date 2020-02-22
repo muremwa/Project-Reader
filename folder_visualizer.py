@@ -45,13 +45,13 @@ class File:
         self.parent_folder.files.append(self)
 
     def __str__(self):
-        return "{file_name} ({lines} lines)".format(
+        return "<File: {file_name} ({lines} lines)>".format(
             lines=self.number_of_lines,
             file_name=self.name,
         )
 
     def __repr__(self):
-        return "{file_name} from the folder {folder}".format(
+        return "<File: {file_name} from the folder {folder}>".format(
             folder=self.parent_folder,
             file_name=self.name,
         )
@@ -62,7 +62,7 @@ class Folder:
     """
     represents a folder
     name is a string
-    the parent is mandatory if the folder is not a parent folder
+    the parent is mandatory if the folder is not the root folder
     i.e. Folder("Folder name", parent_folder=folder_object)
     """
     def __init__(self, name, **kwargs):
@@ -84,11 +84,8 @@ class Folder:
         self.files = []
         self.folders = []
 
-    def __str__(self):
-        return self.name.upper()
-
     def __repr__(self):
-        return self.name.upper()
+        return "<Folder: {name}>".format(name=self.name.upper())
 
 
 def assign_classes(top_folder_name):
