@@ -26,7 +26,7 @@ Run the code below
 from folder_visualizer import assign_classes, draw
 
 
-klasses = assign_classes("FOLDER_GITHUB_PROJECTS_2.txt")
+klasses = assign_classes(test_FOLDER_GITHUB_PROJECTS_2.txt)
 draw(klasses, file_name="results.txt")
 
 ```

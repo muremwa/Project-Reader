@@ -100,6 +100,7 @@ class FolderStore(list):
 
 def kill_project(path):
     """Takes path of a project and returns a string that can be used to visualize the project"""
+    home = os.getcwd()
     os.chdir(path)
     klasses = FolderStore()
 
@@ -107,7 +108,6 @@ def kill_project(path):
         path = packet[0]
         parent_path = "\\".join(path.split("\\")[:-1])
         name = path.split("\\")[-1]
-        files = packet[-1]
 
         # create KillerFolder
         if k == 0:
@@ -123,4 +123,20 @@ def kill_project(path):
 
         klasses.append(k_folder)
 
+    # go back home
+    os.chdir(home)
     return klasses.root_statement()
+
+
+def print_statement(statement):
+    """Takes the statement and writes it to file"""
+    seq = statement.split("\n")
+
+    # file name is the second in the sequence
+    file_name = ("FOLDER " + seq[1]).translate(
+        str.maketrans(' ', '_')
+    ) + ".txt"
+
+    # write the statement to file
+    with open(file_name, 'w') as f:
+        print("\n".join(seq[2:-1]), file=f)

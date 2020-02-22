@@ -1,13 +1,22 @@
-question_1.py - 38
-question_2(factorial).py - 66
-question_21.py - 45
+question_1.py - 0
+question_2(factorial).py - 0
+question_21.py - 0
+temp.txt - 0
 .IDEA
-github projects 2.iml - 11
-misc.xml - 5
-modules.xml - 9
-workspace.xml - 17
+Github Projects 2.iml - 0
+misc.xml - 0
+modules.xml - 0
+workspace.xml - 0
 DICTIONARIES
-muremwa.xml - 5
+muremwa.xml - 0
+PASS
+rtrt.xml - 0
+---- END OF PASS ----
 ---- END OF DICTIONARIES ----
+KIST
+sd.txt - 0
+---- END OF KIST ----
 ---- END OF .IDEA ----
-DESC
+POST
+sd.txt - 0
+---- END OF POST ----
