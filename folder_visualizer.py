@@ -39,7 +39,7 @@ class File:
         self.parent_folder = parent_folder
 
         # make sure the parent_folder is of type "Folder"
-        if type(self.parent_folder).__name__ != "Folder":
+        if not isinstance(self.parent_folder, Folder):
             raise ValueError("parent folder should be an object of the class Folder")
 
         self.parent_folder.files.append(self)
@@ -71,7 +71,7 @@ class Folder:
             self.parent_folder = kwargs['parent_folder']
 
             # make sure the parent_folder is of type "Folder"
-            if type(self.parent_folder).__name__ != "Folder":
+            if not isinstance(self.parent_folder, __class__):
                 raise ValueError("parent folder should be an object of the class Folder")
 
         except KeyError:
