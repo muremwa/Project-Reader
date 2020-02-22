@@ -149,10 +149,7 @@ def draw(klasses, **kwargs):
     top_folder = klasses[0]
     depth = 10
 
-    try:
-        top_folder_name = kwargs['file_name']
-    except KeyError:
-        top_folder_name = "{}.txt".format(top_folder)
+    top_folder_name = kwargs.get('file_name', '{}.txt'.format(top_folder))
 
     with open(top_folder_name, 'w') as open_file:
         # first line is the top folder name
