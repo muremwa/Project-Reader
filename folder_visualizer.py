@@ -74,11 +74,15 @@ class Folder:
             if not isinstance(self.parent_folder, __class__):
                 raise ValueError("parent folder should be an object of the class Folder")
 
+            # add to parent
+            self.parent_folder.folders.append(self)
+
         except KeyError:
             self.parent_folder = None
             print("WARNING: If this is not the root folder, please add a parent")
 
         self.files = []
+        self.folders = []
 
     def __str__(self):
         return self.name.upper()
