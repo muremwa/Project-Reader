@@ -81,7 +81,7 @@ class Folder:
 
         except KeyError:
             self.parent_folder = None
-            print("WARNING: If this is not the root folder, please add a parent")
+            print("WARNING: If {} is not the root folder, please add a parent".format(self.name))
 
         self.files = []
         self.folders = []
