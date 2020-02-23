@@ -45,15 +45,11 @@ class File:
         self.parent_folder.files.append(self)
 
     def __str__(self):
-        return "<{klass}: {file_name} ({lines} lines)>".format(
-            lines=self.number_of_lines,
-            file_name=self.name,
-            klass=self.__class__.__name__,
-        )
+        return "{file} - ({lines} lines)".format(file=self.name, lines=str(self.number_of_lines))
 
     def __repr__(self):
         return "<{klass}: {file_name} from the folder {folder}>".format(
-            folder=self.parent_folder,
+            folder=str(self.parent_folder),
             file_name=self.name,
             klass=self.__class__.__name__,
         )
@@ -85,6 +81,9 @@ class Folder:
 
         self.files = []
         self.folders = []
+
+    def __str__(self):
+        return self.name.upper()
 
     def __repr__(self):
         return "<{klass}: {name}>".format(
@@ -156,7 +155,7 @@ def draw(klasses, **kwargs):
     depth = 10
 
     top_folder_name = kwargs.get('file_name', '{}.txt'.format(top_folder))
-
+    # TODO:: Add support for folders with multiple child folders
     with open(top_folder_name, 'w') as open_file:
         # first line is the top folder name
         print(top_folder, file=open_file)
