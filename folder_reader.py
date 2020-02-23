@@ -56,6 +56,9 @@ class KillerFolder(folder_visualizer.Folder):
 class KillerFile(folder_visualizer.File):
     """Subclass of File with extended function"""
     def __init__(self, name, number_of_lines, parent_folder):
+        # turn name into lower case
+        name = str(name).lower()
+
         # KillerFile parent should be KillerFolder
         if not isinstance(parent_folder, KillerFolder):
             raise ValueError("KillerFile's parent should be an instance of KillerFolder")

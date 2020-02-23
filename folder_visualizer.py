@@ -112,7 +112,9 @@ def assign_classes(top_folder_name):
     # make a list of all folders
     for line in lines:
         if line.islower():
-            file_name, no_lines = line.split(" - ")
+            split_str = line.split(" - ")
+            file_name = " - ".join(split_str[:-1])
+            no_lines = split_str[-1]
             solution.append(File(file_name, no_lines, parent))
 
         elif line.isupper():
