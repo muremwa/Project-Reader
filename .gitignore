@@ -1,2 +1,3 @@
 tests/test_projects_folder/*
 .idea/*
+*txt
