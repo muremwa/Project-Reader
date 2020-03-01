@@ -150,6 +150,8 @@ def draw(klasses, **kwargs):
     The function takes in classes and writes to file/draws in a file the hierarchy
     If no file_name is given on is chosen for you
 
+    it would be awesome if you understood the code that draws
+
     :param klasses: a list of objects of types File or Folder usually products of "assign_classes" function
     :type klasses: list
     """
@@ -157,7 +159,6 @@ def draw(klasses, **kwargs):
     depth = 10
 
     top_folder_name = kwargs.get('file_name', '{}.txt'.format(top_folder))
-    # TODO:: Add support for folders with multiple child folders
     with open(top_folder_name, 'w') as open_file:
         # first line is the top folder name
         print(top_folder, file=open_file)
@@ -172,7 +173,7 @@ def draw(klasses, **kwargs):
             if travel == 0:
                 print("|", file=open_file)
             else:
-                print("|" + " "*travel + "|", file=open_file)
+                print("|" + (" "*depth + "|")*depth_level, file=open_file)
 
             # simple file
             if type(klass).__name__ == "File":
@@ -182,7 +183,7 @@ def draw(klasses, **kwargs):
 
                 # more level files
                 else:
-                    print("|" + " "*travel + "|---- {file}".format(file=str(klass)), file=open_file)
+                    print("|" + (" "*depth + "|")*depth_level + "---- {file}".format(file=str(klass)), file=open_file)
 
             elif type(klass).__name__ == "Folder":
                 # top level folders
@@ -191,4 +192,7 @@ def draw(klasses, **kwargs):
 
                 # more level folders
                 else:
-                    print("|" + " "*travel + "|---- {folder}".format(folder=str(klass)), file=open_file)
+                    print(
+                        "|" + (" " * depth + "|")*depth_level + "---- {folder}".format(folder=str(klass)),
+                        file=open_file
+                    )
