@@ -122,7 +122,17 @@ def kill_project(path):
 
         # create all files
         for file in packet[-1]:
-            KillerFile(file, 0, k_folder)
+            file_path = k_folder.path + '\\' + file
+            count = 0
+            with open(file_path, 'r') as f:
+                if f.seekable():
+                    try:
+                        count = len(
+                            f.read().split("\n")
+                        )
+                    except UnicodeDecodeError:
+                        print(file_path + " can't be read")
+            KillerFile(file, count, k_folder)
 
         klasses.append(k_folder)
 
