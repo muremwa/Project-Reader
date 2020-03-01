@@ -114,12 +114,6 @@ class FolderStore(list):
                 raise TypeError("Argument should be an iterable")
             ignore_folders = ignore_folders.union(set([name.upper() for name in args[0]]))
 
-        try:
-            root = self.__dict__['root']
-        except KeyError:
-            print("Try adding a root to this FolderStore before calling this method")
-            return
-
         for killer in self[1:]:
             if str(killer).upper() in ignore_folders:
                 killer.parent_folder.folders.remove(killer)
