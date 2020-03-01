@@ -60,7 +60,7 @@ class FolderStoreTestCase(TestCase):
     def setUp(self):
         self.folder = KillerFolder('king', 'C:\\user\\main')
         self.folder_1 = KillerFolder('queen', 'C:\\user\\main\\queen', parent_folder=self.folder)
-        self.folder_2 = KillerFolder('prince', 'C:\\user\\prince', parent_folder=self.folder)
+        self.folder_2 = KillerFolder('prince', 'C:\\user\\main\\prince', parent_folder=self.folder)
         self.folder_3 = KillerFolder('qu', 'C:\\user\\main\\queen\\qu', parent_folder=self.folder_1)
         self.folder_store = FolderStore([
             self.folder, self.folder_1, self.folder_2, self.folder_3,
