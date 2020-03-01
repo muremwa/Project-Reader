@@ -159,6 +159,7 @@ def draw(klasses, **kwargs):
     depth = 10
 
     top_folder_name = kwargs.get('file_name', '{}.txt'.format(top_folder))
+    print("Drawing to", top_folder_name)
     with open(top_folder_name, 'w') as open_file:
         # first line is the top folder name
         print(top_folder, file=open_file)
@@ -196,3 +197,4 @@ def draw(klasses, **kwargs):
                         "|" + (" " * depth + "|")*depth_level + "---- {folder}".format(folder=str(klass)),
                         file=open_file
                     )
+    print("Done drawing to", top_folder_name)

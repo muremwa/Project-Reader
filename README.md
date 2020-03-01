@@ -51,8 +51,8 @@ GITHUB_PROJECTS_2
 |          |---- workspace.xml (17 lines)
 |          |
 |          |---- DICTIONARIES
-|                    |
-|                    |---- muremwa.xml (5 lines)
+|          |         |
+|          |         |---- muremwa.xml (5 lines)
 |
 |---- DESC
 

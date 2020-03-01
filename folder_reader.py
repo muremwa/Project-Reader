@@ -100,9 +100,39 @@ class FolderStore(list):
         except KeyError:
             raise RootDoesNotExist
 
+    def ignore_folders(self, *args):
+        """
+        remove KillerFolder objects that are ignored
+        an argument of an iterable can be given to add folders to ignore
+        else only __pycache__ and .git are ignored
+        it ignores the folder and all its descendants
+        """
+        ignore_folders = {'__PYCACHE__', '.GIT'}
 
-def kill_project(path):
-    """Takes path of a project and returns a string that can be used to visualize the project"""
+        if len(args) > 0:
+            if type(args[0]) not in [list, tuple, set]:
+                raise TypeError("Argument should be an iterable")
+            ignore_folders = ignore_folders.union(set([name.upper() for name in args[0]]))
+
+        try:
+            root = self.__dict__['root']
+        except KeyError:
+            print("Try adding a root to this FolderStore before calling this method")
+            return
+
+        for killer in self[1:]:
+            if str(killer).upper() in ignore_folders:
+                killer.parent_folder.folders.remove(killer)
+                self.remove(killer)
+
+
+def kill_project(path, **kwargs):
+    """
+    Takes path of a project and returns a string that can be used to visualize the project
+    A keyword argument is optional to show what folders to ignore
+    kill_project(os.getcwd(), ignore=['tests', 'utilities'])
+    the ignore parameter should always be an iterable
+    """
     home = os.getcwd()
     os.chdir(path)
     klasses = FolderStore()
@@ -136,13 +166,21 @@ def kill_project(path):
 
         klasses.append(k_folder)
 
+    # clean the folder
+    klasses.ignore_folders(
+        kwargs.get('ignore', [])
+    )
+
     # go back home
     os.chdir(home)
     return klasses.root_statement()
 
 
 def print_statement(statement):
-    """Takes the statement and writes it to file"""
+    """
+    Takes the statement and writes it to file
+    returns the file name that it wrote to
+    """
     seq = statement.split("\n")
 
     # file name is the second in the sequence
@@ -153,3 +191,5 @@ def print_statement(statement):
     # write the statement to file
     with open(file_name, 'w') as f:
         print("\n".join(seq[2:-1]), file=f)
+
+    return file_name
