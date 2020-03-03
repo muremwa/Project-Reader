@@ -2,11 +2,42 @@
 An easy way to count the number of lines in your project. (To be added) 
 There is also and easy function to draw the hierarchy of your projects.
 
-## Folder visualizer 
-Contains classes(Folder, File) and functions(assign_class, depth_calculator, draw) to help visualize the hierarchy.  
-Example. This is ___"test_FOLDER_GITHUB_PROJECTS_2.txt"___ prepared by a function __"coming soon"__.  
+## _Using project reader from console_
+This entails running project_reader.py in console. 
+It takes one positional argument and two other optional arguments.
+The positional argument is the path of the project.
+```commandline
+project_reader.py "C:\Users\admin\django projects\blog-site"
+```
+Optional one is the folders to ignore in a comma-separated string.
+```commandline
+project_reader.py "C:\Users\admin\django projects\blog-site" --ignore ".idea, .vscode"
+```
+Optional two is the final output file. 
+```commandline
+project_reader.py "C:\Users\admin\django projects\blog-site" --output "blog_site_tree.txt"
+```
+OR
+```commandline
+project_reader.py "C:\Users\admin\django projects\blog-site" --ignore ".idea, .vscode" --output "blog_site_tree.txt"
+```
 
-```txt
+This will output a file a tree visualizing you project.
+
+
+Go ahead and run the line below to learn more
+```commandline
+project_reader.py -h
+``` 
+
+
+## _Using project reader in python code or from the interpreter_
+You can choose to use from the interpreter or in your code using the help of folder_reader.py and folder_visualizer.py
+## Folder visualizer (folder_visualizer.py)
+Contains classes(Folder, File) and functions(assign_class, depth_calculator, draw) to help visualize the hierarchy.  
+Example. This is ___"test_FOLDER_GITHUB_PROJECTS_2.txt"___ prepared by folder_reader.print_statement() below.  
+###### Example 1
+```text
 question_1.py - 38  
 question_2(factorial).py - 66  
 question_21.py - 45  
@@ -31,7 +62,8 @@ draw(klasses, file_name="results.txt")
 
 ```
 This is the output in "results.txt"
-```txt
+###### Example 2
+```text
 GITHUB_PROJECTS_2
 |
 |---- question_1.py (38 lines)
@@ -58,4 +90,58 @@ GITHUB_PROJECTS_2
 
 ```
 
-__THIS IS AN ONGOING PROJECT__
+## Folder reader (folder_reader.py)
+Contains the following classes:  
+ 1. KillerFolder - extends the Folder class from folder_visualizer.py but adds the following methods (eq) and statement 
+ and the path property.
+ 2. KillerFile - extends the File class from folder_visualizer.py but adds the path property
+ 3. FolderStore - extends the in-built list class. It stores only KillerFolder objects.
+ 4. RootDoesNotExist - an exception that is raised when one tries to access the root KillerFolder object of a 
+ FolderStore object that has none.
+ 
+ Contains the following functions:
+ 1. kill_project - takes in a path of the folder to read, reads and returns a string representative of the files and
+  folders similar to [example 1](#Example 1) above. You can add a  keyword argument called ignore to show what folders 
+  to ignore.
+ 2. print_statement - takes the statement from kill_project and writes it to a file and returns the name of that file. 
+ Usually FOLDER_SOMETHING.txt
+ 
+ Using folder_reader.py (demonstrated using the folder names TOP)
+ ```python
+import os
+from folder_reader import kill_project, print_statement
+
+# change into the folder you want to read
+os.chdir(os.getcwd() + "\\TOP")
+
+# get the statement
+statement = kill_project(os.getcwd(), ignore=['.vscode', '.idea'])
+
+# write the statement to a file
+file_name = print_statement(statement)  # the file_name can be passes into folder_visualizer.assign_classes()
+
+``` 
+
+The last line writes to a file called "FOLDER_TOP.txt"
+```text
+file.txt - 1
+VO
+s.txt - 1
+KO
+l1.txt - 1
+---- END OF KO ----
+---- END OF VO ----
+XO
+n.txt - 1
+BO
+temp.txt - 1
+---- END OF BO ----
+JO
+sd.txt - 1
+PO
+l.txt - 1
+---- END OF PO ----
+---- END OF JO ----
+---- END OF XO ----
+``` 
+Notice how the folder '.idea' was ignored.
