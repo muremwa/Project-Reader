@@ -3,6 +3,7 @@ import argparse
 
 from folder_reader import kill_project, print_statement
 from folder_visualizer import assign_classes, draw
+from folder_summary import summarize_pr, load_file_types
 
 par = argparse.ArgumentParser()
 par.add_argument("path", type=str, help="Path of the project to read")
@@ -26,6 +27,8 @@ if args.output:
 
 def main(project_path, **kwargs):
     print("NOW READING")
+    # load file types from data.json
+    files_dict = load_file_types()
     # go to folder
     os.chdir(project_path)
 
@@ -34,6 +37,7 @@ def main(project_path, **kwargs):
     )
 
     klasses = assign_classes(file)
+    summarize_pr(klasses, files_dict)
     try:
         file_name = kwargs['output_file']
         if file_name:
