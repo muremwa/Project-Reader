@@ -28,6 +28,7 @@ if args.output:
 def main(project_path, **kwargs):
     print("NOW READING")
     # load file types from data.json
+    os.chdir("\\".join(__file__.split("\\")[:-1]))
     files_dict = load_file_types()
     # go to folder
     os.chdir(project_path)
