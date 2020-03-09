@@ -44,6 +44,10 @@ class File:
 
         self.parent_folder.files.append(self)
 
+    @property
+    def file_extension(self):
+        return self.name.split(".")[-1].upper()
+
     def __str__(self):
         return "{file} - ({lines} lines)".format(file=self.name, lines=str(self.number_of_lines))
 
