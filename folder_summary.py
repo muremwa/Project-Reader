@@ -2,6 +2,7 @@
 WRITES TO A FILE A SUMMARY OF THE PROJECT JUST READ
 """
 import json
+from collections import OrderedDict
 
 from folder_visualizer import Folder, File
 
@@ -10,15 +11,21 @@ file_types = {}
 
 
 def summarize_pr(klasses, files_dict):
-    """summarises the project"""
+    """summarises the project by counting the number of folders, files, file type and the number of lines in total"""
     print("Summarising")
     folders = [obj for obj in klasses[1:] if isinstance(obj, Folder)]
     files = [assign_file_type(obj, files_dict) for obj in klasses if isinstance(obj, File)]
     total_lines = sum(
         [nums[-1] for nums in list(file_types.values())]
     )
+    # order the file_type dict
+    or_file_types = OrderedDict(
+        sorted(file_types.items(), key=lambda s: s[-1], reverse=True)
+    )
+
+    # write summary
     file_name = "{}_SUMMARY.txt".format(str(klasses[0]))
-    write_summary(file_name, str(klasses[0]), len(folders), len(files), total_lines)
+    write_summary(file_name, str(klasses[0]), len(folders), len(files), total_lines, or_file_types)
     print("Summary to {} done".format(file_name))
 
 
@@ -51,7 +58,7 @@ def assign_file_type(file_obj, files):
     return file_obj
 
 
-def write_summary(file_name, title_folder, total_folders, total_files, total_lines):
+def write_summary(file_name, title_folder, total_folders, total_files, total_lines, file_types_ordered):
     """Writes the summary to file"""
     with open(file_name, 'w') as summary_file:
         # title
@@ -68,7 +75,7 @@ def write_summary(file_name, title_folder, total_folders, total_files, total_lin
             space_3=" "*(12-len("Total lines"))
         ), file=summary_file)
         print("\t" + "-" * 43, file=summary_file)
-        for file_type, count_list in file_types.items():
+        for file_type, count_list in file_types_ordered.items():
             print("\t|{file_type_name}{space_1}| {num_of_files}{space_2}| {total_file_type_lines}{space_3}|".format(
                 file_type_name=file_type,
                 num_of_files=count_list[0],
