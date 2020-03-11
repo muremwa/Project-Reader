@@ -110,7 +110,7 @@ def kill_project(path, **kwargs):
     """
     home = os.getcwd()
     home_split = [x.upper() for x in home.split("\\")]
-    ignore_folders = set(['__PYCACHE__', '.GIT', '.IDEA'] + [s.upper() for s in kwargs.get('ignore', [])])
+    ignore_folders = set(['__PYCACHE__', '.GIT'] + [s.upper() for s in kwargs.get('ignore', [])])
     print('going to ignore', ignore_folders)
     os.chdir(path)
     klasses = FolderStore()
