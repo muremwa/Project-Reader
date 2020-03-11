@@ -100,25 +100,6 @@ class FolderStore(list):
         except KeyError:
             raise RootDoesNotExist
 
-    def ignore_folders(self, *args):
-        """
-        remove KillerFolder objects that are ignored
-        an argument of an iterable can be given to add folders to ignore
-        else only __pycache__ and .git are ignored
-        it ignores the folder and all its descendants
-        """
-        ignore_folders = {'__PYCACHE__', '.GIT'}
-
-        if len(args) > 0:
-            if type(args[0]) not in [list, tuple, set]:
-                raise TypeError("Argument should be an iterable")
-            ignore_folders = ignore_folders.union(set([name.upper() for name in args[0]]))
-
-        for killer in self[1:]:
-            if str(killer).upper() in ignore_folders:
-                killer.parent_folder.folders.remove(killer)
-                self.remove(killer)
-
 
 def kill_project(path, **kwargs):
     """
@@ -128,13 +109,28 @@ def kill_project(path, **kwargs):
     the ignore parameter should always be an iterable
     """
     home = os.getcwd()
+    home_split = [x.upper() for x in home.split("\\")]
+    ignore_folders = set(['__PYCACHE__', '.GIT', '.IDEA'] + [s.upper() for s in kwargs.get('ignore', [])])
+    print('going to ignore', ignore_folders)
     os.chdir(path)
     klasses = FolderStore()
 
     for k, packet in enumerate(os.walk(os.getcwd())):
+        skip = False
         path = packet[0]
         parent_path = "\\".join(path.split("\\")[:-1])
         name = path.split("\\")[-1]
+        p_path = "\\".join(
+            [s.upper() for s in parent_path.split("\\") if home_split.count(s.upper()) == 0]
+        )
+        current_path = [s.upper() for s in (p_path + '\\' + name).split("\\")]
+        for name_ in ignore_folders:
+            if current_path.count(name_) > 0:
+                skip = True
+                break
+
+        if skip:
+            continue
 
         # create KillerFolder
         if k == 0:
@@ -159,11 +155,6 @@ def kill_project(path, **kwargs):
             KillerFile(file, count, k_folder)
 
         klasses.append(k_folder)
-
-    # clean the folder
-    klasses.ignore_folders(
-        kwargs.get('ignore', [])
-    )
 
     # go back home
     os.chdir(home)
