@@ -15,16 +15,6 @@ class FolderTestCase(TestCase):
         self.assertEqual(self.folder.parent_folder.name, self.parent_folder.name)
 
 
-class FileTestCase(TestCase):
-    def setUp(self):
-        self.top_folder = Folder("TestFolder")
-        self.file = File("file.txt", 500, self.top_folder)
-
-    def test_number_of_lines(self):
-        with self.assertRaises(ValueError):
-            File("x.py", "dsf", self.top_folder)
-
-
 class AssignClassTestCase(TestCase):
     def setUp(self):
         self.top_folder_name = "FOLDER_GITHUB_PROJECTS_2.txt"

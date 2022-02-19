@@ -35,12 +35,13 @@ class KillerFolderTestCase(TestCase):
 
     def test_statement(self):
         """Statement of a folder"""
-        statement_folder_3 = "\nQU\nten.txt - 45\n---- END OF QU ----"
-        statement_folder_2 = "\nPRINCE\nseven.txt - 45\neight.txt - 45\nnine.txt - 45\n---- END OF PRINCE ----"
-        statement_folder_1 = "\nQUEEN\nfour.txt - 45\nfive.txt - 45\nsix.txt - 45" + statement_folder_3 + \
-                             "\n---- END OF QUEEN ----"
-        statement_folder = "\nKING\none.txt - 45\ntwo.txt - 45\nthree.txt - 45" + statement_folder_1 + \
-                           statement_folder_2 + "\n---- END OF KING ----"
+        statement_folder_3 = "\nREADER_FOLDER_LABEL_QU\nten.txt - 45\n---- END OF QU ----"
+        statement_folder_2 = "\nREADER_FOLDER_LABEL_PRINCE\nseven.txt - 45\neight.txt - 45\nnine.txt - 45\n---- END " \
+                             "OF PRINCE ----"
+        statement_folder_1 = "\nREADER_FOLDER_LABEL_QUEEN\nfour.txt - 45\nfive.txt - 45\nsix.txt - 45" + \
+                             statement_folder_3 + "\n---- END OF QUEEN ----"
+        statement_folder = "\nREADER_FOLDER_LABEL_KING\none.txt - 45\ntwo.txt - 45\nthree.txt - 45" + \
+                           statement_folder_1 + statement_folder_2 + "\n---- END OF KING ----"
 
         self.assertEqual(self.folder.statement(), statement_folder)
         self.assertEqual(self.folder_1.statement(), statement_folder_1)
@@ -104,12 +105,13 @@ class FolderStoreTestCase(TestCase):
     def test_root_statement(self):
         """get statement from the root folder of the store"""
         """Statement of a folder"""
-        statement_folder_3 = "\nQU\nten.txt - 45\n---- END OF QU ----"
-        statement_folder_2 = "\nPRINCE\nseven.txt - 45\neight.txt - 45\nnine.txt - 45\n---- END OF PRINCE ----"
-        statement_folder_1 = "\nQUEEN\nfour.txt - 45\nfive.txt - 45\nsix.txt - 45" + statement_folder_3 + \
-                             "\n---- END OF QUEEN ----"
-        statement_folder = "\nKING\none.txt - 45\ntwo.txt - 45\nthree.txt - 45" + statement_folder_1 + \
-                           statement_folder_2 + "\n---- END OF KING ----"
+        statement_folder_3 = "\nREADER_FOLDER_LABEL_QU\nten.txt - 45\n---- END OF QU ----"
+        statement_folder_2 = "\nREADER_FOLDER_LABEL_PRINCE\nseven.txt - 45\neight.txt - 45\nnine.txt - 45\n---- END " \
+                             "OF PRINCE ----"
+        statement_folder_1 = "\nREADER_FOLDER_LABEL_QUEEN\nfour.txt - 45\nfive.txt - 45\nsix.txt - 45" + \
+                             statement_folder_3 + "\n---- END OF QUEEN ----"
+        statement_folder = "\nREADER_FOLDER_LABEL_KING\none.txt - 45\ntwo.txt - 45\nthree.txt - 45" + \
+                           statement_folder_1 + statement_folder_2 + "\n---- END OF KING ----"
         KillerFile('one.txt', 45, self.folder)
         KillerFile('two.txt', 45, self.folder)
         KillerFile('three.txt', 45, self.folder)
