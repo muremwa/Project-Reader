@@ -10,7 +10,7 @@ class RootDoesNotExist(Exception):
 
 class KillerFolder(folder_visualizer.Folder):
     """Subclass of Folder with extended function"""
-    def __init__(self, name, path, **kwargs):
+    def __init__(self, name: str, path: str, **kwargs):
         self.path = path
         super().__init__(name, **kwargs)
 
@@ -44,7 +44,7 @@ class KillerFolder(folder_visualizer.Folder):
         for folder in self.folders:
             children.append(folder.statement())
 
-        solution = "\n{folder_name}\n{files}{child}\n---- END OF {folder_name} ----".format(
+        solution = "\nREADER_FOLDER_LABEL_{folder_name}\n{files}{child}\n---- END OF {folder_name} ----".format(
             folder_name=self.name.upper(),
             files=files,
             child="".join(children),
@@ -101,7 +101,7 @@ class FolderStore(list):
             raise RootDoesNotExist
 
 
-def kill_project(path, **kwargs):
+def kill_project(path: str, **kwargs) -> str:
     """
     Takes path of a project and returns a string that can be used to visualize the project
     A keyword argument is optional to show what folders to ignore
@@ -151,7 +151,11 @@ def kill_project(path, **kwargs):
                             f.read().split("\n")
                         )
                     except UnicodeDecodeError:
-                        print(file_path + " can't be read")
+                        print(f"{file_path} can't be read")
+
+                    except MemoryError:
+                        print(f"{file_path} too big")
+
             KillerFile(file, count, k_folder)
 
         klasses.append(k_folder)
@@ -169,9 +173,7 @@ def print_statement(statement):
     seq = statement.split("\n")
 
     # file name is the second in the sequence
-    file_name = ("FOLDER " + seq[1]).translate(
-        str.maketrans(' ', '_')
-    ) + ".txt"
+    file_name = f"FOLDER {seq[1].replace('READER_FOLDER_LABEL_', '')}".translate(str.maketrans(' ', '_')) + ".txt"
 
     # write the statement to file
     with open(file_name, 'w') as f:

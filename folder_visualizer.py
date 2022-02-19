@@ -23,6 +23,7 @@ TOP_LEVEL_FOLDER
 
 
 import re
+from typing import List, Union
 
 
 # class to represent a file
@@ -33,9 +34,9 @@ class File:
     number_of_lines - number of lines of the file. type integer
     parent folder is the folder the file belongs to. type Folder class
     """
-    def __init__(self, name, number_of_lines, parent_folder):
+    def __init__(self, name: str, number_of_lines: int, parent_folder: 'Folder'):
         self.name = name
-        self.number_of_lines = int(number_of_lines)
+        self.number_of_lines = number_of_lines
         self.parent_folder = parent_folder
 
         # make sure the parent_folder is of type "Folder"
@@ -49,14 +50,10 @@ class File:
         return self.name.split(".")[-1].upper()
 
     def __str__(self):
-        return "{file} - ({lines} lines)".format(file=self.name, lines=str(self.number_of_lines))
+        return f"{self.name} - ({str(self.number_of_lines)} lines)"
 
     def __repr__(self):
-        return "<{klass}: {file_name} from the folder {folder}>".format(
-            folder=str(self.parent_folder),
-            file_name=self.name,
-            klass=self.__class__.__name__,
-        )
+        return f"<{self.__class__.__name__}: {self.name} from the folder {str(self.parent_folder)}>"
 
 
 # class to represent a folder
@@ -67,8 +64,8 @@ class Folder:
     the parent is mandatory if the folder is not the root folder
     i.e. Folder("Folder name", parent_folder=folder_object)
     """
-    def __init__(self, name, **kwargs):
-        self.name = str(name)
+    def __init__(self, name: str, **kwargs):
+        self.name = name
         try:
             self.parent_folder = kwargs['parent_folder']
 
@@ -81,7 +78,7 @@ class Folder:
 
         except KeyError:
             self.parent_folder = None
-            print("WARNING: If {} is not the root folder, please add a parent".format(self.name))
+            print(f"WARNING: If {self.name} is not the root folder, please add a parent")
 
         self.files = []
         self.folders = []
@@ -90,13 +87,10 @@ class Folder:
         return self.name.upper()
 
     def __repr__(self):
-        return "<{klass}: {name}>".format(
-            name=self.name.upper(),
-            klass=self.__class__.__name__,
-        )
+        return f"<{self.__class__.__name__}: {self.name.upper()}>"
 
 
-def assign_classes(top_folder_name):
+def assign_classes(top_folder_name: str) -> Union[List[File], List[Folder]]:
     """
     Takes all the names representing files and folder and assign them their respective classes
 
@@ -105,6 +99,7 @@ def assign_classes(top_folder_name):
     :return: list of objects of File or Folder type
     :rtype: list
     """
+    top_folder_name = top_folder_name.replace("READER_FOLDER_LABEL_", "")
     with open(top_folder_name, 'r') as open_file:
         lines = open_file.readlines()
 
@@ -118,14 +113,14 @@ def assign_classes(top_folder_name):
         if line.islower():
             split_str = line.split(" - ")
             file_name = " - ".join(split_str[:-1])
-            no_lines = split_str[-1]
+            no_lines = int(split_str[-1])
             solution.append(File(file_name, no_lines, parent))
 
         elif line.isupper():
             if re.search('END OF', line):
                 parent = parent.parent_folder
             else:
-                folder = Folder(line, parent_folder=parent)
+                folder = Folder(line.replace("READER_FOLDER_LABEL_", ""), parent_folder=parent)
                 solution.append(folder)
                 parent = folder
 
