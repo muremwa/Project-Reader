@@ -1,9 +1,9 @@
 import os
 import argparse
 
-from folder_reader import kill_project, print_statement
-from folder_visualizer import assign_classes, draw
-from folder_summary import summarize_pr, load_file_types
+from .folder_reader import kill_project, print_statement
+from .folder_visualizer import assign_classes, draw
+from .folder_summary import summarize_pr, f_types
 
 par = argparse.ArgumentParser()
 par.add_argument("path", type=str, help="Path of the project to read")
@@ -29,7 +29,7 @@ def main(project_path, **kwargs):
     print("NOW READING")
     # load file types from data.json
     os.chdir("\\".join(__file__.split("\\")[:-1]))
-    files_dict = load_file_types()
+    files_dict = f_types
     # go to folder
     os.chdir(project_path)
 

@@ -2,4 +2,7 @@ tests/test_projects_folder/*
 .idea/*
 *txt
 fishert.py
-__pycache__/*
+*/__pycache__/*
+project_reader.egg-info/*
+build/*
+dist/*

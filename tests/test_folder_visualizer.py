@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 
-from folder_visualizer import Folder, File, assign_classes
+from project.folder_visualizer import Folder, File, assign_classes
 
 
 class FolderTestCase(TestCase):

@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 
-from folder_reader import KillerFolder, KillerFile, FolderStore, RootDoesNotExist
+from project.folder_reader import KillerFolder, KillerFile, FolderStore, RootDoesNotExist
 
 
 class KillerFolderTestCase(TestCase):

@@ -1,6 +1,6 @@
 import os
 
-import folder_visualizer
+from . import folder_visualizer
 
 
 class RootDoesNotExist(Exception):

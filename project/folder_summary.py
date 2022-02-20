@@ -4,10 +4,29 @@ WRITES TO A FILE A SUMMARY OF THE PROJECT JUST READ
 import json
 from collections import OrderedDict
 
-from folder_visualizer import Folder, File
+from .folder_visualizer import Folder, File
 
 
 file_types = {}
+
+f_types = {
+  "Images": ["PNG", "JPEG", "JPG", "GIF", "SVG"],
+  "Videos": ["MP4", "AVI", "VOB", "MKV"],
+  "Audio": ["WAV", "MP3", "M4A"],
+  "Python": ["PY", "PYW", "PYC", "PYI"],
+  "Markdown": ["MD", "MARKDOWN"],
+  "Text files": ["TXT", "INI", "GITIGNORE"],
+  "XML": ["XML"],
+  "JavaScript": ["JS", "JSX"],
+  "HTML": ["HTML", "HTM"],
+  "CSS": ["CSS"],
+  "Java": ["JAVA", "CLASS"],
+  "C": ["C"],
+  "C++": ["CPP", "C++"],
+  "C#": ["CS"],
+  "OCTAVE": ["M"],
+  "SQL": ["SQLITE3", "SQL"]
+}
 
 
 def summarize_pr(klasses, files_dict):
@@ -35,16 +54,6 @@ def update_file_types(file_obj):
     c_values[0] += 1
     c_values[-1] += file_obj.number_of_lines
     file_types[file_obj.file_type] = c_values
-
-
-def load_file_types():
-    """
-    loads file names and associated extensions from data.json
-    This function is called first before changing directory
-    """
-    with open('data.json', 'r') as data_file:
-        files = json.load(data_file)
-    return files
 
 
 def assign_file_type(file_obj, files):

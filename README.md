@@ -1,25 +1,28 @@
 # Project Reader
-An easy way to count the number of lines in your project. (To be added) 
-There is also and easy function to draw the hierarchy of your projects.
+Read and summarize the files in your projects.
+An easy way to achieve the following:
+1. Count the number of lines in your project.
+1. Visualize the hierarchy of the files in your project.
+1. Create a summary of all files.
 
 ## _Using project reader from console_
-This entails running project_reader.py in console. 
+This entails running project_reader module in console `python -m project.read`. 
 It takes one positional argument and two other optional arguments.
 The positional argument is the path of the project.
 ```commandline
-project_reader.py "C:\Users\admin\django projects\blog-site"
+python -m project.read "C:\Users\admin\django projects\blog-site"
 ```
 Optional one is the folders to ignore in a comma-separated string.
 ```commandline
-project_reader.py "C:\Users\admin\django projects\blog-site" --ignore ".idea, .vscode"
+python -m project.read "C:\Users\admin\django projects\blog-site" --ignore ".idea, .vscode"
 ```
 Optional two is the final output file. 
 ```commandline
-project_reader.py "C:\Users\admin\django projects\blog-site" --output "blog_site_tree.txt"
+python -m project.read "C:\Users\admin\django projects\blog-site" --output "blog_site_tree.txt"
 ```
 OR
 ```commandline
-project_reader.py "C:\Users\admin\django projects\blog-site" --ignore ".idea, .vscode" --output "blog_site_tree.txt"
+python -m project.read "C:\Users\admin\django projects\blog-site" --ignore ".idea, .vscode" --output "blog_site_tree.txt"
 ```
 
 This will output a file a tree visualizing you project.
@@ -27,15 +30,15 @@ This will output a file a tree visualizing you project.
 
 Go ahead and run the line below to learn more
 ```commandline
-project_reader.py -h
+python -m project.read -h
 ``` 
 
 
 ## _Using project reader in python code or from the interpreter_
-You can choose to use from the interpreter or in your code using the help of folder_reader.py and folder_visualizer.py
-## Folder visualizer (folder_visualizer.py)
+You can choose to use from the interpreter or in your code using the help of project.folder_reader.py and project.folder_visualizer.py
+## Folder visualizer (project.folder_visualizer.py)
 Contains classes(Folder, File) and functions(assign_class, depth_calculator, draw) to help visualize the hierarchy.  
-Example. This is ___"test_FOLDER_GITHUB_PROJECTS_2.txt"___ prepared by folder_reader.print_statement() below.  
+Example. This is ___"test_FOLDER_GITHUB_PROJECTS_2.txt"___ prepared by the function `project.folder_reader.print_statement` below.  
 ###### Example 1
 ```text
 question_1.py - 38  
@@ -54,7 +57,7 @@ DESC
 ```
 Run the code below
 ```python
-from folder_visualizer import assign_classes, draw
+from project.folder_visualizer import assign_classes, draw
 
 
 klasses = assign_classes('test_FOLDER_GITHUB_PROJECTS_2.txt')
@@ -90,11 +93,11 @@ GITHUB_PROJECTS_2
 
 ```
 
-## Folder reader (folder_reader.py)
+## Folder reader (project.folder_reader.py)
 Contains the following classes:  
- 1. KillerFolder - extends the Folder class from folder_visualizer.py but adds the following methods (eq) and statement 
+ 1. KillerFolder - extends the Folder class from project.folder_visualizer.py but adds the following methods (eq) and statement 
  and the path property.
- 2. KillerFile - extends the File class from folder_visualizer.py but adds the path property
+ 2. KillerFile - extends the File class from project.folder_visualizer.py but adds the path property
  3. FolderStore - extends the in-built list class. It stores only KillerFolder objects.
  4. RootDoesNotExist - an exception that is raised when one tries to access the root KillerFolder object of a 
  FolderStore object that has none.
@@ -106,10 +109,10 @@ Contains the following classes:
  2. print_statement - takes the statement from kill_project and writes it to a file and returns the name of that file. 
  Usually FOLDER_SOMETHING.txt
  
- Using folder_reader.py (demonstrated using the folder names TOP)
+ Using project.folder_reader.py (demonstrated using the folder names TOP)
  ```python
 import os
-from folder_reader import kill_project, print_statement
+from project.folder_reader import kill_project, print_statement
 
 # change into the folder you want to read
 os.chdir(os.getcwd() + "\\TOP")
